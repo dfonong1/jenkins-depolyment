@@ -1,0 +1,135 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: 
+
+Parameters: 
+ #---------------------------------------
+  # Web Servers Parameters
+  #---------------------------------------
+  # Ventura Prod Web Server 1
+  VenturaProdWebServer1azPara:
+    Description: Please select the Availability Zone to place the VenturaProdWebServer1
+    Type: AWS::EC2::AvailabilityZone::Name
+
+  VenturaProdWebServer1ImageIdPara:
+    Description: Please provide Image Id for VenturaProdWebServer1
+    Type: AWS::EC2::Image::Id
+  
+  VenturaProdWebServer1InstanceTypePara:
+    Description: Enter t2.micro, t2.medium, or m1.large for VenturaProdWebServer1
+    Type: String
+    AllowedValues:
+      - t2.micro
+      - t2.medium
+      - m1.large
+    Default: t2.medium
+  
+  VenturaProdWebServer1KeyNamePara:
+    Description: Provide a KeName for VenturaProdWebServer1
+    Type: AWS::EC2::KeyPair::KeyName
+  
+  # Ventura Prod Web Server 2
+  VenturaProdWebServer2azPara:
+    Description: Please select the Availability Zone to place the VenturaProdWebServer2
+    Type: AWS::EC2::AvailabilityZone::Name
+
+  VenturaProdWebServer2ImageIdPara:
+    Description: Please provide Image Id for VenturaProdWebServer2
+    Type: AWS::EC2::Image::Id
+  
+  VenturaProdWebServer2InstanceTypePara:
+    Description: Enter t2.micro, t2.medium, or m1.large for VenturaProdWebServer2
+    Type: String
+    AllowedValues:
+      - t2.micro
+      - t2.medium
+      - m1.large
+    Default: t2.medium
+  
+  VenturaProdWebServer2KeyNamePara:
+    Description: Provide a KeName for VenturaProdWebServer2
+    Type: AWS::EC2::KeyPair::KeyName
+
+  #---------------------------------
+  # App Servers Parameters
+  #---------------------------------
+  # Ventura Prod App Server 1
+  VenturaProdAppServer1azPara:
+    Description: Please select the Availability Zone to place the VenturaProdAppServer1
+    Type: AWS::EC2::AvailabilityZone::Name
+
+  VenturaProdAppServer1ImageIdPara:
+    Description: Please provide Image Id for VenturaProdWebServer1
+    Type: AWS::EC2::Image::Id
+  
+  VenturaProdAppServer1InstanceTypePara:
+    Description: Enter t2.micro, t2.medium, or m1.large for VenturaProdAppServer1
+    Type: String
+    AllowedValues:
+      - t2.micro
+      - t2.medium
+      - m1.large
+    Default: t2.medium
+  
+  VenturaProdAppServer1KeyNamePara:
+    Description: Provide a KeName for VenturaProdAppServer1
+    Type: AWS::EC2::KeyPair::KeyName
+  
+  # Ventura Prod App Server 2
+  VenturaProdAppServer2azPara:
+    Description: Please select the Availability Zone to place the VenturaProdAppServer2
+    Type: AWS::EC2::AvailabilityZone::Name
+
+  VenturaProdAppServer2ImageIdPara:
+    Description: Please provide Image Id for VenturaProdAppServer2
+    Type: AWS::EC2::Image::Id
+  
+  VenturaProdAppServer2InstanceTypePara:
+    Description: Enter t2.micro, t2.medium, or m1.large for VenturaProdAppServer2
+    Type: String
+    AllowedValues:
+      - "t2.micro"
+      - "t2.medium"
+      - "m1.large"
+    Default: t2.medium
+  
+  VenturaProdAppServer2KeyNamePara:
+    Description: Provide a KeName for VenturaProdAppServer2
+    Type: AWS::EC2::KeyPair::KeyName
+
+  #---------------------------------
+  # RDS DB Instance Parameters
+  #---------------------------------
+  VenturaProdDBInstanceAllocatedStoragePara:
+    Description: Provide the DB Instance Allocated Storage size
+    Type: String
+
+  VenturaProdDBInstanceDBInstanceClassPara:
+    Description: Provide the DB Instance Class/Type for DBInstanceClass
+    Type: String
+    Default: db.t3.micro
+  
+  VenturaProdDBInstanceEnginePara:
+    Description: Provide the DB instance Engine Type
+    Type: String 
+    Default: MySQL
+  
+  VenturaProdDBInstanceMasterUsernamePara:
+    Description: Provide the DB Instance Master/Admin Username (example admin or root)
+    Type: String
+    Default: admin
+  
+  VenturaProdDBInstanceMasterUserPasswordPara:
+    Description: Provide the DB Instance Master/Admin Password. Password can't contain any of the following / (slash), '(single quote), "(double quote) and @ (at sign)
+    Type: String
+  
+  VenturaProdDBInstanceMultiAZPara:
+    Description: Provide the DB Placement Multi AZ or Single Instamce (true/false)
+    Type: String
+
+Mappings: {}
+
+Conditions: {}
+
+Resources: {}
+
+Outputs:

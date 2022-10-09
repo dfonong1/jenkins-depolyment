@@ -1,0 +1,171 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: 
+
+Parameters: 
+
+Mappings: 
+
+Conditions: 
+
+Resources: 
+#-----------------------------------------
+  # Ventura Prod ELB:ALB(FrontEnd/BackEnd), LB Listeners and Target Group
+  #-----------------------------------------
+  # Application/Internet-Facing/FrontEnd Loadbalancer
+  VenturaProdFrontEndWebLB:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Name: FrontEndLB
+      Subnets:
+        - !Ref VenturaProdNATalbSN1
+        - !Ref VenturaProdNATalbSN2
+      SecurityGroups:
+        - !Ref VenturaProdFrontEndLBSecurityGroup
+      Tags:
+        - Key: Name
+          Value: VenturaProdFrontEndWebLB
+
+  VenturaProdFrontEndLBListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      LoadBalancerArn: !Ref VenturaProdFrontEndWebLB
+      Port: 80
+      Protocol: HTTP
+      DefaultActions:
+        - Type: forward
+          TargetGroupArn: !Ref VenturaProdFrontEndWebLBtg
+
+  VenturaProdFrontEndWebLBtg: 
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Name: VenturaProdFrontEndWebLBtg
+      VpcId: !Ref VenturaProdVPC
+      Port: 80
+      Protocol: HTTP
+      TargetType: instance
+      Targets: 
+       - Id: !Ref VenturaProdWebServer1
+         Port: 80
+       - Id: !Ref VenturaProdWebServer2
+         Port: 80
+
+  # Application/Internal/BackEnd Loadbalancer
+  VenturaProdBackEndAppLB:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Name: BackEndLB
+      Scheme: internal
+      Subnets:
+        - !Ref VenturaProdAppSN1
+        - !Ref VenturaProdAppSN2
+      SecurityGroups:
+        - !Ref VenturaProdBackEndLBSecurityGroup
+      Tags:
+        - Key: Name
+          Value: VenturaProdBackEndAppLB
+
+  VenturaProdBackEndAppLBtg: 
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Name: VenturaProdBackEndAppLBtg
+      VpcId: #-----------------------------------------
+  # Ventura Prod ELB:ALB(FrontEnd/BackEnd), LB Listeners and Target Group
+  #-----------------------------------------
+  # Application/Internet-Facing/FrontEnd Loadbalancer
+  VenturaProdFrontEndWebLB:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Name: FrontEndLB
+      Subnets:
+        - !Ref VenturaProdNATalbSN1
+        - !Ref VenturaProdNATalbSN2
+      SecurityGroups:
+        - !Ref VenturaProdFrontEndLBSecurityGroup
+      Tags:
+        - Key: Name
+          Value: VenturaProdFrontEndWebLB
+
+  VenturaProdFrontEndLBListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      LoadBalancerArn: !Ref VenturaProdFrontEndWebLB
+      Port: 80
+      Protocol: HTTP
+      DefaultActions:
+        - Type: forward
+          TargetGroupArn: !Ref VenturaProdFrontEndWebLBtg
+
+  VenturaProdFrontEndWebLBtg: 
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Name: VenturaProdFrontEndWebLBtg
+      VpcId: !Ref VenturaProdVPC
+      Port: 80
+      Protocol: HTTP
+      TargetType: instance
+      Targets: 
+       - Id: !Ref VenturaProdWebServer1
+         Port: 80
+       - Id: !Ref VenturaProdWebServer2
+         Port: 80
+
+  # Application/Internal/BackEnd Loadbalancer
+  VenturaProdBackEndAppLB:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Name: BackEndLB
+      Scheme: internal
+      Subnets:
+        - !Ref VenturaProdAppSN1
+        - !Ref VenturaProdAppSN2
+      SecurityGroups:
+        - !Ref VenturaProdBackEndLBSecurityGroup
+      Tags:
+        - Key: Name
+          Value: VenturaProdBackEndAppLB
+
+  VenturaProdBackEndAppLBtg: 
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Name: VenturaProdBackEndAppLBtg
+      VpcId: !ImportValue :VenturaProdVPCidOutput
+      Port: 80
+      Protocol: HTTP
+      TargetType: instance
+      Targets: 
+       - Id: !Ref VenturaProdAppServer1
+         Port: 80
+       - Id: !Ref VenturaProdAppServer2
+         Port: 80
+  
+  VenturaProdBackEndAppLBListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      LoadBalancerArn: !Ref VenturaProdBackEndAppLB
+      Port: 80
+      Protocol: HTTP
+      DefaultActions:
+        - Type: forward
+          TargetGroupArn: !Ref VenturaProdBackEndAppLBtg
+
+      Port: 80
+      Protocol: HTTP
+      TargetType: instance
+      Targets: 
+       - Id: !Ref VenturaProdAppServer1
+         Port: 80
+       - Id: !Ref VenturaProdAppServer2
+         Port: 80
+  
+  VenturaProdBackEndAppLBListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      LoadBalancerArn: !Ref VenturaProdBackEndAppLB
+      Port: 80
+      Protocol: HTTP
+      DefaultActions:
+        - Type: forward
+          TargetGroupArn: !Ref VenturaProdBackEndAppLBtg
+
+
+Outputs:

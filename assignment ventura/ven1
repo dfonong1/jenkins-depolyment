@@ -1,0 +1,65 @@
+
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: This template creats a VPC for Ventura Infrastructure
+
+Metadata:
+  
+Parameters:
+  VpcCIDR
+    Default: 10.0.0.0/16
+    Description: Please enter the ip range for this vpc
+    Type: string
+
+
+  PublicSubnet1CIDR:
+    Default: 10.0.1.0/24
+    Description: Please enter the ip (CIDR notation) range for the publicsubnet1
+    Type: string
+
+  PublicSubnet2CIDR:
+    Default: 10.0.2.0/24
+    Description: Please enter the ip (CIDR) range for the publicsubnet2
+    Type: string
+
+   PrivateSubnet1CIDR:
+    Default: 10.0.3.0/24
+    Description: Please enter the ip (CIDR notation) range for the privatesubnet1
+    Type: string
+
+  PrivateSubnet2CIDR:
+    Default: 10.0.4.0/24
+    Description: Please enter the ip (CIDR notation) range for the privatesubnet2
+    Type: string
+
+  PrivateSubnet3CIDR:
+    Default: 10.0.5.0/24
+    Description: Please enter the ip (CIDR notation) range for the privatesubnet3
+    Type: string
+
+  PrivateSubnet4CIDR:
+    Default: 10.0.6.0/24
+    Description: Please enter the ip (CIDR notation) range for the privatesubnet4
+    Type: string
+
+  PrivateSubnet5CIDR:
+    Default: 10.0.7.0/24
+    Description: Please enter the ip (CIDR notation) range for the privatesubnet5
+    Type: string
+
+   PrivateSubnet6CIDR:
+    Default: 10.0.8.0/24
+    Description: Please enter the ip (CIDR notation) range for the privatesubnet6
+    Type: string
+
+  "SSHLocation:
+
+    AllowedPattern: (\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})
+    ConstraintDescription: Must be a valid IP CIDR range of the form x.x.x.x/x.
+   
+  
+
+
+Resources:
+ 
+Outputs:

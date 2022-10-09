@@ -1,0 +1,12 @@
+README.md aws cloudformation create-stack --stack-name myteststack --template-body file://sampletemplate.json --parameters
+#AWS Ventura Cloud Formation Project
+
+##AWS Cloudformation CLI Commands
+-**AWS CLI Documantation** https://docs.aws.amazon.com/cli/latest/reference/cloudformation/create-stack.html
+
+-**Create Stack Commands:**
+aws cloudformation create-stack \ 
+--stack-name Ventura-Prod-Env-Infra \
+--template-body file://ventura-Prod-Env-infra.yaml \
+--parameters file://Ventura-Prod-Env-Infra-Parameters-file.json
+

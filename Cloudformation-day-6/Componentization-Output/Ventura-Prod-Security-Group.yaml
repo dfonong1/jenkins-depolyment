@@ -1,0 +1,86 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: --- 
+
+Parameters: 
+
+Mappings: {}
+
+Conditions: {}
+
+Resources: 
+ #-----------------------------------------
+  # Ventura Prod Web/App/DB Instance Security Groups
+  #-----------------------------------------
+  VenturaProdWebSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: VenturaProdWebSecurityGroup
+      GroupDescription: This security group is meant for the VenturaProdWebServers
+      VpcId: !ImportValue :VenturaProdVPCidOutput
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          SourceSecurityGroupId: !GetAtt VenturaProdFrontEndLBSecurityGroup.GroupId
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 192.168.255.255/32
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          SourceSecurityGroupId: !GetAtt VenturaProdFrontEndLBSecurityGroup.GroupId
+      Tags:
+        - Key: Name
+          Value: VenturaProdWebSecurityGroup
+  
+  VenturaProdAppSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: VenturaProdAppSecurityGroup
+      GroupDescription: This security group is meant for the VenturaProdWebServers
+      VpcId: !ImportValue :VenturaProdVPCidOutput
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          SourceSecurityGroupId: !GetAtt VenturaProdBackEndLBSecurityGroup.GroupId
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 192.168.255.255/32
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          SourceSecurityGroupId: !GetAtt VenturaProdBackEndLBSecurityGroup.GroupId
+      Tags:
+        - Key: Name
+          Value: VenturaProdAppSecurityGroup
+  
+  VenturaProdDBSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: VenturaProdDBSecurityGroup
+      GroupDescription: This security group is meant for the VenturaProdWebServers
+      VpcId: !ImportValue :VenturaProdVPCidOutput
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 3306
+          ToPort: 3306
+          SourceSecurityGroupId: !GetAtt VenturaProdAppSecurityGroup.GroupId
+      Tags:
+        - Key: Name
+          Value: VenturaProdDBSecurityGroup
+
+
+VenturaProdWebSecurityGroupidOutput:
+  Description: Exporting the VenturaProdWebSecurityGroup ID
+  Value: !Ref VenturaProdWebSecurityGroupidOutput
+  Export: 
+    Name: VenturaProdWebSecurityGroupidOutput
+
+  :VenturaProdAppSecurityGroup
+  Description: Exporting the VenturaProdAppSecurityGroup  ID
+  Value: !Ref VenturaProdAppSecurityGroupOutput
+  Export: 
+    Name: VenturaProdAppSecurityGroup
